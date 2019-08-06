@@ -1,13 +1,14 @@
-import "./style.css";
+import './style.css';
 
-import React from "react";
-import styled from "styled-components";
-import { Provider, connect } from "react-redux";
-import { createStore } from "redux";
+import React from 'react';
+import { connect, Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { createStore } from 'redux';
+import styled from 'styled-components';
 
-import Form from "./components/Form";
-import form from "./reducers/form.reducer";
-import { updateField } from "./actions/form.actions";
+import { resetFields, updateField } from './actions/form.actions';
+import Form from './components/Form';
+import form from './reducers/form.reducer';
 
 const StyledHeader = styled.div`
   background-color: #0086ff;
@@ -20,17 +21,22 @@ const StyledHeader = styled.div`
 
 const HeaderMain = styled.h1`
   font-size: 2.4rem;
-  font-family: sans-serif;
   text-align: center;
   color: #fff;
 `;
 
-const store = createStore(form);
+const store = createStore(
+  form,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 function handleValueChange(event) {
   const name = event.target.name;
   store.dispatch(updateField(event.target.value, name));
-  console.log(store.getState());
+}
+
+function resetForm() {
+  store.dispatch(resetFields());
 }
 
 const mapStateToProps = state => {
@@ -40,23 +46,26 @@ const mapStateToProps = state => {
   };
 };
 
-window.setTimeout(() => {
-  store.dispatch(updateField("TEST", "naam"));
-}, 5000);
+const ConnectedForm = connect(mapStateToProps)(Form);
 
-const RealForm = connect(mapStateToProps)(Form);
+const Test = () => <div>Test</div>;
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <div className="App">
-        <StyledHeader>
-          <HeaderMain>Contact form</HeaderMain>
-        </StyledHeader>
-        <RealForm handleChange={handleValueChange} />
-      </div>
-    </Provider>
-  );
-};
+const Main = () => (
+  <div className="App">
+    <StyledHeader>
+      <HeaderMain>Contact form</HeaderMain>
+    </StyledHeader>
+    <ConnectedForm handleChange={handleValueChange} reset={resetForm} />
+  </div>
+);
+
+const App = () => (
+  <Provider store={store}>
+    <Router>
+      <Route path="/" component={Main} />
+      <Route path="/test" component={Test} exact />
+    </Router>
+  </Provider>
+);
 
 export default App;

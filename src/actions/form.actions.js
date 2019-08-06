@@ -8,3 +8,7 @@ export const RESET_FIELDS = "RESET_FIELDS";
 export function updateField(value, name) {
   return { type: UPDATE_FIELD, value, name };
 }
+
+export function resetFields() {
+  return { type: RESET_FIELDS };
+}

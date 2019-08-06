@@ -1,4 +1,4 @@
-import { UPDATE_FIELD } from "../actions/form.actions";
+import { RESET_FIELDS, UPDATE_FIELD } from '../actions/form.actions';
 
 const initialState = {
   naam: "",
@@ -11,6 +11,8 @@ function form(state = initialState, action) {
       return Object.assign({}, state, {
         [action.name]: action.value
       });
+    case RESET_FIELDS:
+      return initialState;
     default:
       return state;
   }

@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const TextInput = styled.input`
   border: 1px solid #ddd;
@@ -16,9 +16,23 @@ const InputWrapper = styled.div`
   font-size: 1.6rem;
 `;
 
-const Btn = styled.button``;
+const Btn = styled.button`
+  background-color: ${props => (props.type === "submit" ? "#83cf3d" : "#ddd")};
+  transition: background-color 0.3s;
+  &:hover {
+    cursor: pointer;
+    background-color: ${props =>
+      props.type === "submit" ? "#79b53a" : "#ccc"};
+  }
+  border: none;
+  padding: 1em;
+  border-radius: 0.4rem;
+  margin-right: 20px;
+  color: ${props => (props.type === "submit" ? "#fff" : "#888")};
+  font-size: 1.6rem;
+`;
 
-const Form = ({ handleChange, name, email }) => (
+const Form = ({ handleChange, reset, name, email }) => (
   <form>
     <InputWrapper>
       <label>
@@ -39,7 +53,16 @@ const Form = ({ handleChange, name, email }) => (
     </InputWrapper>
     <InputWrapper>
       <Btn type="submit">Verstuur</Btn>
-      <Btn type="reset">Reset</Btn>
+      <Btn
+        type="reset"
+        onClick={e => {
+          e.preventDefault();
+          reset();
+        }}
+      >
+        {" "}
+        Reset
+      </Btn>
     </InputWrapper>
   </form>
 );

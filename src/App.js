@@ -1,14 +1,14 @@
-import './style.css';
+import "./style.css";
 
-import React from 'react';
-import { connect, Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { createStore } from 'redux';
-import styled from 'styled-components';
+import React from "react";
+import { connect, Provider } from "react-redux";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { createStore } from "redux";
+import styled from "styled-components";
 
-import { resetFields, updateField } from './actions/form.actions';
-import Form from './components/Form';
-import form from './reducers/form.reducer';
+import { resetFields, updateField } from "./actions/form.actions";
+import Form from "./components/Form";
+import form from "./reducers/form.reducer";
 
 const StyledHeader = styled.div`
   background-color: #0086ff;
@@ -59,11 +59,58 @@ const Main = () => (
   </div>
 );
 
+const codes = [];
+
+function getRandomNumber() {
+  const numbers = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9];
+
+  const code = [];
+
+  for (let i = 0; i < 9; i++) {
+    code[i] = numbers.splice(Math.floor(Math.random() * numbers.length), 1)[0];
+  }
+  const result =
+    code[0] * 9 +
+    code[1] * 8 +
+    code[2] * 7 +
+    code[3] * 6 +
+    code[4] * 5 +
+    code[5] * 4 +
+    code[6] * 3 +
+    code[7] * 2 +
+    code[8];
+  if (result % 11 === 0) {
+    return code.join("");
+  }
+  return false;
+}
+
+const results = new Set();
+
+while (Array.from(results).length < 100) {
+  const number = getRandomNumber();
+  if (number) results.add(number);
+}
+Array.from(results).map(val => codes.push(val));
+
+const Result = () => (
+  <div>
+    <StyledHeader>
+      <HeaderMain>Jouw codes</HeaderMain>
+    </StyledHeader>
+    <pre>
+      {codes.map(val => {
+        return val + "\n";
+      })}
+    </pre>
+  </div>
+);
+
 const App = () => (
   <Provider store={store}>
     <Router>
-      <Route path="/" component={Main} />
-      <Route path="/test" component={Test} exact />
+      <Route path="/" component={Main} exact />
+      <Route path="/resultaat" component={Result} exact />
     </Router>
   </Provider>
 );

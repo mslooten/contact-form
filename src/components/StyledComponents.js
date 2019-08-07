@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const StyledHeader = styled.div`
   background-color: #0086ff;
@@ -51,31 +50,15 @@ export const InputWrapper = styled.div`
 `;
 
 export const Btn = styled.button`
+  cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
+  opacity: ${props => (props.disabled ? ".5" : "1")};
   background-color: ${props => (props.type === "submit" ? "#83cf3d" : "#ddd")};
   transition: background-color 0.3s;
   &:hover {
-    cursor: pointer;
     background-color: ${props =>
       props.type === "submit" ? "#79b53a" : "#ccc"};
   }
   border: none;
-  padding: 1em;
-  border-radius: 0.4rem;
-  margin-right: 20px;
-  color: ${props => (props.type === "submit" ? "#fff" : "#888")};
-  font-size: 1.6rem;
-`;
-
-export const BtnLink = styled(Link)`
-  background-color: ${props => (props.type === "submit" ? "#83cf3d" : "#ddd")};
-  transition: background-color 0.3s;
-  &:hover {
-    cursor: pointer;
-    background-color: ${props =>
-      props.type === "submit" ? "#79b53a" : "#ccc"};
-  }
-  border: none;
-  text-decoration: none;
   padding: 1em;
   border-radius: 0.4rem;
   margin-right: 20px;

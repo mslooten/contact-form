@@ -1,4 +1,4 @@
-import { GENERATE_CODES } from "../actions/codes.actions";
+import { GENERATE_CODES, REMOVE_CODES } from "../actions/codes.actions";
 
 const initialState = {
   codes: []
@@ -77,9 +77,12 @@ function returnCodes(amount) {
 function codes(state = initialState, action) {
   switch (action.type) {
     case GENERATE_CODES:
+      if (state.codes.length > 0) return state;
       return Object.assign({}, state, {
         codes: returnCodes(action.amount)
       });
+    case REMOVE_CODES:
+      return initialState;
     default:
       return state;
   }

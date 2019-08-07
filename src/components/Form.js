@@ -1,7 +1,8 @@
 import React from "react";
-import { InputWrapper, TextInput, BtnLink, Btn } from "./StyledComponents";
+import { InputWrapper, TextInput, Btn } from "./StyledComponents";
+import { withRouter } from "react-router-dom";
 
-const Form = ({ handleChange, reset, name, email }) => (
+const Form = ({ handleChange, reset, name, email, history, submitForm }) => (
   <form>
     <InputWrapper>
       <label>
@@ -21,9 +22,17 @@ const Form = ({ handleChange, reset, name, email }) => (
       </label>
     </InputWrapper>
     <InputWrapper>
-      <BtnLink to="/resultaat" type="submit">
+      <Btn
+        onClick={e => {
+          e.preventDefault();
+          submitForm(e);
+          history.push("/resultaat");
+        }}
+        type="submit"
+        disabled={!name || !email}
+      >
         Verstuur
-      </BtnLink>
+      </Btn>
       <Btn
         type="reset"
         onClick={e => {
@@ -37,4 +46,4 @@ const Form = ({ handleChange, reset, name, email }) => (
   </form>
 );
 
-export default Form;
+export default withRouter(Form);

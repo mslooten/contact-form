@@ -1,4 +1,5 @@
 html {
+  /* to enable easier resizing with rems (for a11y), since 1rem will be 10px now */
   font-size: 62.5%;
   margin: 0;
   padding: 0;
@@ -9,4 +10,76 @@ body {
   color: #556;
   margin: 0;
   padding: 0;
+  font-size: 1.6rem;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0086ff;
+  height: 15rem;
+  margin-bottom: 4rem;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.4rem;
+  color: #fff;
+}
+
+pre {
+  column-count: 5;
+  padding: 2rem;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  background-color: #eee;
+  border-radius: 0.4rem;
+  text-align: center;
+}
+
+p {
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+form {
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+input {
+  border: 1px solid #ddd;
+  border-radius: 0.4rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  font-size: 1.6rem;
+  padding: 1rem 1rem;
+  color: #777;
+}
+
+label {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+}
+
+/* Router animation */
+
+.switch-wrapper {
+  position: relative;
+}
+
+.switch-wrapper > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

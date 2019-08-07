@@ -69,7 +69,7 @@ function returnCodes(amount) {
     results.add(getRandomNumber());
   }
 
-  // Return it as an array to be more flexible
+  // Return it as an array to be able to iterate via .map
   return Array.from(results);
 }
 
@@ -77,6 +77,7 @@ function returnCodes(amount) {
 function codes(state = initialState, action) {
   switch (action.type) {
     case GENERATE_CODES:
+      // If we already have codes in state, simply return those instead of generating new ones
       if (state.codes.length > 0) return state;
       return Object.assign({}, state, {
         codes: returnCodes(action.amount)
